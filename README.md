@@ -1,4 +1,4 @@
-<p align="center">AcreSaude</p>
+<p align="center">Employ Control</p>
 
 # About the project
 
