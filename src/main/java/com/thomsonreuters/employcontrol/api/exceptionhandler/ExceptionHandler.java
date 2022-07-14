@@ -6,9 +6,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
@@ -29,8 +35,28 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     String messageUser =
         messageSource.getMessage("message.invalid", null, LocaleContextHolder.getLocale());
     String messageDevelope = ex.getCause().toString();
-    return handleExceptionInternal(
-        ex, new Erro(messageUser, messageDevelope), headers, HttpStatus.BAD_REQUEST, request);
+    List<Erro> erros = Arrays.asList(new Erro(messageUser, messageDevelope));
+    return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest request) {
+    List<Erro> erros = createListErros(ex.getBindingResult());
+    return handleExceptionInternal(ex, erros, headers, status, request);
+  }
+
+  private List<Erro> createListErros(BindingResult bindingResul) {
+    List<Erro> erros = new ArrayList<>();
+    for (FieldError fieldError : bindingResul.getFieldErrors()) {
+      String messageUser = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+      String messageDevelope = fieldError.toString();
+      erros.add(new Erro(messageUser, messageDevelope));
+    }
+    return erros;
   }
 
   public static class Erro {

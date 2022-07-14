@@ -1,6 +1,7 @@
 package com.thomsonreuters.employcontrol.api.resource;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class ClientResource {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Client> create(@RequestBody Client client, HttpServletResponse response) {
+  public ResponseEntity<Client> create(@Valid @RequestBody Client client, HttpServletResponse response) {
     Client clientSave = clientService.create(client);
 
     URI uri =

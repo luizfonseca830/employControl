@@ -1,6 +1,7 @@
 package com.thomsonreuters.employcontrol.api.resource;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class JobPositionResource {
 
   @PostMapping("/create")
   public ResponseEntity<JobPosition> create(
-      @RequestBody JobPosition jobPosition, HttpServletResponse response) {
+     @Valid @RequestBody JobPosition jobPosition, HttpServletResponse response) {
     JobPosition jobPositionSave = jobPositionService.create(jobPosition);
 
     URI uri =
