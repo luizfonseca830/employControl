@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import com.thomsonreuters.employcontrol.api.model.Client;
 import com.thomsonreuters.employcontrol.api.repository.ClientRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -14,7 +15,7 @@ public class ClientService {
     this.clientRepository = clientRepository;
   }
 
-  public List<Client> clientList(){
+  public List<Client> clientList() {
     return clientRepository.findAll();
   }
 
@@ -23,8 +24,7 @@ public class ClientService {
     return clientRepository.save(client);
   }
 
-  public Client searchForCode(Long id){
-    return this.clientRepository.findById(id).orElse(null);
+  public Optional<Client> searchForCode(Long id) {
+    return clientRepository.findById(id);
   }
-
 }

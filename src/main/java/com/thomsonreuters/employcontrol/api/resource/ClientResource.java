@@ -14,6 +14,7 @@ import com.thomsonreuters.employcontrol.api.model.Client;
 import com.thomsonreuters.employcontrol.api.service.ClientService;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
@@ -46,7 +47,7 @@ public class ClientResource {
 
   @GetMapping("/{id}")
   public ResponseEntity<Client> searchForCode(@PathVariable Long id) {
-    Client client = clientService.searchForCode(id);
-    return client != null ? ResponseEntity.ok(client) : ResponseEntity.notFound().build();
+    Optional<Client> client = clientService.searchForCode(id);
+    return client.isPresent() ? ResponseEntity.ok(client.get()) : ResponseEntity.notFound().build();
   }
 }

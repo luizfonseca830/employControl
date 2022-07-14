@@ -8,11 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "job_position")
-public class JobPosition {
+public class JobPosition implements Serializable {
+  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +23,7 @@ public class JobPosition {
 
   @Column(name = "name", nullable = false, length = 30 )
   @NotNull
-  @Size(min = 10, max = 30)
+  @Size(min = 5, max = 30)
   private String name;
 
   public String getName() {
