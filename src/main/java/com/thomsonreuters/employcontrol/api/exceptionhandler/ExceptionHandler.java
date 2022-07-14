@@ -1,6 +1,5 @@
 package com.thomsonreuters.employcontrol.api.exceptionhandler;
 
-import org.hibernate.service.spi.InjectService;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
