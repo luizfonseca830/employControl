@@ -23,4 +23,8 @@ public class ClientService {
     return clientRepository.save(client);
   }
 
+  public Client searchForCode(Long id){
+    return this.clientRepository.findById(id).orElse(null);
+  }
+
 }

@@ -1,13 +1,14 @@
 package com.thomsonreuters.employcontrol.api.resource;
 
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.thomsonreuters.employcontrol.api.dto.ClientDTO;
 import com.thomsonreuters.employcontrol.api.model.Client;
 import com.thomsonreuters.employcontrol.api.service.ClientService;
 import java.net.URI;
@@ -29,15 +30,22 @@ public class ClientResource {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Client> create(@RequestBody ClientDTO clientDTO) {
-    Client client = new Client();
-    client.setName(clientDTO.getName());
-    client = clientService.create(client);
+  public ResponseEntity<Client> create(@RequestBody Client client, HttpServletResponse response) {
+    Client clientSave = clientService.create(client);
+
     URI uri =
         ServletUriComponentsBuilder.fromCurrentRequestUri()
             .path("/{id}")
-            .buildAndExpand(client.getId())
+            .buildAndExpand(clientSave.getId())
             .toUri();
-    return ResponseEntity.created(uri).body(client);
+  response.setHeader("Location", uri.toASCIIString());
+
+  return ResponseEntity.created(uri).body(clientSave);
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Client> searchForCode(@PathVariable Long id) {
+    Client client = clientService.searchForCode(id);
+    return client != null ? ResponseEntity.ok(client) : ResponseEntity.notFound().build();
   }
 }
