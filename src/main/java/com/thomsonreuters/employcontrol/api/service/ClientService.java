@@ -11,30 +11,32 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
-
-  private final ClientRepository clientRepository;
-
-  private final ModelMapper modelMapper;
-
   public ClientService(ClientRepository clientRepository, ModelMapper modelMapper) {
     this.clientRepository = clientRepository;
     this.modelMapper = modelMapper;
   }
 
-  private Client convetToClientDTO(ClientDTO clientDTO){
+  private final ClientRepository clientRepository;
+
+  private final ModelMapper modelMapper;
+
+  private Client convetToClientDTO(ClientDTO clientDTO) {
     return modelMapper.map(clientDTO, Client.class);
   }
+
   private ClientDTO convetToClient(Client client) {
     return modelMapper.map(client, ClientDTO.class);
   }
 
   public List<ClientDTO> clientList() {
-    return clientRepository.findAll().stream().map(this::convetToClient).collect(Collectors.toList());
+    return clientRepository.findAll().stream()
+        .map(this::convetToClient)
+        .collect(Collectors.toList());
   }
 
   public Client create(ClientDTO clientDTO) {
     Client client = convetToClientDTO(clientDTO);
-    return  clientRepository.save(client);
+    return clientRepository.save(client);
   }
 
   public Optional<Client> searchForCode(Long id) {

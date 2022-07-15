@@ -1,16 +1,20 @@
 package com.thomsonreuters.employcontrol.api.dto;
 
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.thomsonreuters.employcontrol.api.enums.TypeContract;
 import com.thomsonreuters.employcontrol.api.model.Client;
 import com.thomsonreuters.employcontrol.api.model.JobPosition;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class EmployeeDTO {
-
+public class EmployeeDTO implements Serializable {
+  private static final long serialVersionUID = 1L;
   private Long id;
+  @ManyToOne
   private Client client;
+  @ManyToOne
   private JobPosition jobPosition;
 
   @NotNull

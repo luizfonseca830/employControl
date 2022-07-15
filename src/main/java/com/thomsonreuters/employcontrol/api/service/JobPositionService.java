@@ -12,20 +12,20 @@ import java.util.stream.Collectors;
 @Service
 public class JobPositionService {
 
-  public final JobPositionRepository jobPositionRepository;
-
-  public final ModelMapper modelMapper;
-
   public JobPositionService(JobPositionRepository jobPositionRepository, ModelMapper modelMapper) {
     this.jobPositionRepository = jobPositionRepository;
     this.modelMapper = modelMapper;
   }
 
-  private JobPositionDTO convertToJobPosition(JobPosition jobPosition){
+  public final JobPositionRepository jobPositionRepository;
+
+  public final ModelMapper modelMapper;
+
+  private JobPositionDTO convertToJobPosition(JobPosition jobPosition) {
     return modelMapper.map(jobPosition, JobPositionDTO.class);
   }
 
-  private JobPosition convertToJobPositionDTO(JobPositionDTO jobPositionDTO){
+  private JobPosition convertToJobPositionDTO(JobPositionDTO jobPositionDTO) {
     return modelMapper.map(jobPositionDTO, JobPosition.class);
   }
 

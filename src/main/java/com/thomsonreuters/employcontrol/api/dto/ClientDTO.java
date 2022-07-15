@@ -2,8 +2,9 @@ package com.thomsonreuters.employcontrol.api.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-public class ClientDTO {
+public class ClientDTO implements Serializable {
 
   private Long id;
 

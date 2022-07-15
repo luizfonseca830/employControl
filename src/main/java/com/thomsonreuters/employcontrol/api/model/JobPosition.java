@@ -15,7 +15,6 @@ import java.util.Objects;
 @Table(name = "job_position")
 public class JobPosition implements Serializable {
   private static final long serialVersionUID = 1L;
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
