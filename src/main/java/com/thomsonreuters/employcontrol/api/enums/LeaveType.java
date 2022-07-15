@@ -1,0 +1,15 @@
+package com.thomsonreuters.employcontrol.api.enums;
+
+public enum LeaveType {
+  CONTRIBUTORS_DEATH,
+  MATERNITY_LEAVE,
+  PATERNIT_LEAVE,
+  WORK_INJURY,
+  VACATION,
+  TERMINATION,
+  TYPICAL,
+  PROFESSIONAL_DISEASE_OR_FROM_WORK,
+  COMMUTING_ACCIDENT,
+  OTHERS
+
+}

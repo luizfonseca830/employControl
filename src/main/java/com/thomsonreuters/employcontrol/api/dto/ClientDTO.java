@@ -1,30 +1,27 @@
 package com.thomsonreuters.employcontrol.api.dto;
 
-import com.thomsonreuters.employcontrol.api.model.Client;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class ClientDTO implements Serializable {
+public class ClientDTO {
 
-  private static final long serialVersionUID = 1L;
   private Long id;
+  @NotNull
+  @Size(min = 10, max = 30)
   private String name;
 
-  public ClientDTO(Client obj) {
-    this.id = obj.getId();
-    this.name = obj.getName();
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
   public String getName() {
     return name;
   }
+
 
   public void setName(String name) {
     this.name = name;

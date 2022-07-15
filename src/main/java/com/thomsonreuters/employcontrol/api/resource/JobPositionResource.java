@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import com.thomsonreuters.employcontrol.api.dto.JobPositionDTO;
 import com.thomsonreuters.employcontrol.api.model.JobPosition;
 import com.thomsonreuters.employcontrol.api.service.JobPositionService;
 import java.net.URI;
@@ -25,7 +26,7 @@ public class JobPositionResource {
   }
 
   @GetMapping("/list")
-  public List<JobPosition> jobPositionList() {
+  public List<JobPositionDTO> jobPositionList() {
     return jobPositionService.jobPositionList();
   }
 

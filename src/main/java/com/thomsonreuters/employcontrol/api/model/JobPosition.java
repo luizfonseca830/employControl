@@ -23,7 +23,7 @@ public class JobPosition implements Serializable {
 
   @Column(name = "name", nullable = false, length = 30 )
   @NotNull
-  @Size(min = 5, max = 30)
+  @Size(max = 30)
   private String name;
 
   public String getName() {

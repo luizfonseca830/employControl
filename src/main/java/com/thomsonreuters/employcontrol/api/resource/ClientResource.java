@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import com.thomsonreuters.employcontrol.api.dto.ClientDTO;
 import com.thomsonreuters.employcontrol.api.model.Client;
 import com.thomsonreuters.employcontrol.api.service.ClientService;
 import java.net.URI;
@@ -27,13 +28,13 @@ public class ClientResource {
   }
 
   @GetMapping("/list")
-  public List<Client> clientList() {
+  public List<ClientDTO> clientList() {
     return clientService.clientList();
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Client> create(@Valid @RequestBody Client client, HttpServletResponse response) {
-    Client clientSave = clientService.create(client);
+  public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO clientDTO, HttpServletResponse response) {
+    ClientDTO clientSave = clientService.create(clientDTO);
 
     URI uri =
         ServletUriComponentsBuilder.fromCurrentRequestUri()
