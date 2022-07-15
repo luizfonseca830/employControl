@@ -4,5 +4,4 @@ public enum TypeContract {
   EMPLOYEE,
   PARTNER,
   INTERN
-
 }

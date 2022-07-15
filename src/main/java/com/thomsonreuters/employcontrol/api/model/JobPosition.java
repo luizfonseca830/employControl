@@ -21,7 +21,7 @@ public class JobPosition implements Serializable {
   @Column(name = "id", nullable = false)
   private Long id;
 
-  @Column(name = "name", nullable = false, length = 30 )
+  @Column(name = "name", nullable = false, length = 30)
   @NotNull
   @Size(max = 30)
   private String name;
@@ -61,9 +61,6 @@ public class JobPosition implements Serializable {
 
   @Override
   public String toString() {
-    return "JobPosition{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        '}';
+    return "JobPosition{" + "id=" + id + ", name='" + name + '\'' + '}';
   }
 }

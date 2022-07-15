@@ -32,8 +32,8 @@ public class JobPositionResource {
 
   @PostMapping("/create")
   public ResponseEntity<JobPosition> create(
-     @Valid @RequestBody JobPosition jobPosition, HttpServletResponse response) {
-    JobPosition jobPositionSave = jobPositionService.create(jobPosition);
+     @Valid @RequestBody JobPositionDTO jobPositionDTO, HttpServletResponse response) {
+    JobPosition jobPositionSave = jobPositionService.create(jobPositionDTO);
 
     URI uri =
         ServletUriComponentsBuilder.fromCurrentRequestUri()

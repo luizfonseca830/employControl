@@ -14,13 +14,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "client")
 public class Client implements Serializable {
-private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
 
-  @Column(name = "name", nullable = false, length = 30 )
+  @Column(name = "name", nullable = false, length = 30)
   @NotNull
   @Size(min = 10, max = 30)
   private String name;
@@ -60,9 +61,6 @@ private static final long serialVersionUID = 1L;
 
   @Override
   public String toString() {
-    return "Client{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        '}';
+    return "Client{" + "id=" + id + ", name='" + name + '\'' + '}';
   }
 }

@@ -33,17 +33,18 @@ public class ClientResource {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO clientDTO, HttpServletResponse response) {
-    ClientDTO clientSave = clientService.create(clientDTO);
+  public ResponseEntity<Client> create(
+      @Valid @RequestBody ClientDTO clientDTO, HttpServletResponse response) {
+    Client clientSave = clientService.create(clientDTO);
 
     URI uri =
         ServletUriComponentsBuilder.fromCurrentRequestUri()
             .path("/{id}")
             .buildAndExpand(clientSave.getId())
             .toUri();
-  response.setHeader("Location", uri.toASCIIString());
+    response.setHeader("Location", uri.toASCIIString());
 
-  return ResponseEntity.created(uri).body(clientSave);
+    return ResponseEntity.created(uri).body(clientSave);
   }
 
   @GetMapping("/{id}")

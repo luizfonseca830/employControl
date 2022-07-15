@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 public class ClientDTO {
 
   private Long id;
+
   @NotNull
   @Size(min = 10, max = 30)
   private String name;
@@ -21,7 +22,6 @@ public class ClientDTO {
   public String getName() {
     return name;
   }
-
 
   public void setName(String name) {
     this.name = name;

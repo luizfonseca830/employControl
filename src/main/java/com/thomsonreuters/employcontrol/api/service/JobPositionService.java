@@ -1,5 +1,7 @@
 package com.thomsonreuters.employcontrol.api.service;
 
+import javax.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.thomsonreuters.employcontrol.api.dto.JobPositionDTO;
 import com.thomsonreuters.employcontrol.api.model.JobPosition;
@@ -12,25 +14,29 @@ public class JobPositionService {
 
   public final JobPositionRepository jobPositionRepository;
 
-  public JobPositionService(JobPositionRepository jobPositionRepository) {
+  public final ModelMapper modelMapper;
+
+  public JobPositionService(JobPositionRepository jobPositionRepository, ModelMapper modelMapper) {
     this.jobPositionRepository = jobPositionRepository;
+    this.modelMapper = modelMapper;
   }
 
-  private JobPositionDTO toJobPositionDTO(JobPosition jobPosition) {
-    var jobPositionDTO = new JobPositionDTO();
-    jobPositionDTO.setId(jobPosition.getId());
-    jobPositionDTO.setName(jobPosition.getName());
-    return jobPositionDTO;
+  private JobPositionDTO convertToJobPosition(JobPosition jobPosition){
+    return modelMapper.map(jobPosition, JobPositionDTO.class);
+  }
+
+  private JobPosition convertToJobPositionDTO(JobPositionDTO jobPositionDTO){
+    return modelMapper.map(jobPositionDTO, JobPosition.class);
   }
 
   public List<JobPositionDTO> jobPositionList() {
     return jobPositionRepository.findAll().stream()
-        .map(this::toJobPositionDTO)
+        .map(this::convertToJobPosition)
         .collect(Collectors.toList());
   }
 
-  public JobPosition create(JobPosition jobPosition) {
-    jobPosition.setId(null);
+  public JobPosition create(@Valid JobPositionDTO jobPositionDTO) {
+    JobPosition jobPosition = convertToJobPositionDTO(jobPositionDTO);
     return jobPositionRepository.save(jobPosition);
   }
 }

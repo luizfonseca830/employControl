@@ -20,6 +20,7 @@ import java.time.LocalDate;
 @Table(name = "employee")
 public class Employee implements Serializable {
   private static final long serialVersionUID = 1L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
@@ -33,12 +34,12 @@ public class Employee implements Serializable {
   @JoinColumn(name = "jobposition")
   private JobPosition jobPosition;
 
-  @Column(name = "name", nullable = false, length = 50 )
+  @Column(name = "name", nullable = false, length = 50)
   @NotNull
   @Size(min = 10, max = 50)
   private String name;
 
-  @Column(name = "national_identity", nullable = false, length = 20 )
+  @Column(name = "national_identity", nullable = false, length = 20)
   @NotNull
   @Size(max = 20)
   private String nationalIdentity;
@@ -55,7 +56,6 @@ public class Employee implements Serializable {
   @Column(name = "type_contract")
   @Enumerated(EnumType.STRING)
   private TypeContract typeContract;
-
 
   public Long getId() {
     return id;

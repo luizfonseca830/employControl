@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import com.thomsonreuters.employcontrol.api.dto.EmployeeDTO;
 import com.thomsonreuters.employcontrol.api.model.Employee;
 import com.thomsonreuters.employcontrol.api.service.EmployeeService;
 import java.net.URI;
@@ -25,14 +26,14 @@ public class EmployeeResource {
   }
 
   @GetMapping("/list")
-  public List<Employee> employeeList() {
+  public List<EmployeeDTO> employeeList() {
     return employeeService.employeeList();
   }
 
   @PostMapping("/create")
   public ResponseEntity<Employee> create(
-      @Valid @RequestBody Employee employee, HttpServletResponse response) {
-    Employee employeeSave = employeeService.create(employee);
+      @Valid @RequestBody EmployeeDTO employeeDTO, HttpServletResponse response) {
+    Employee employeeSave = employeeService.create(employeeDTO);
     URI uri =
         ServletUriComponentsBuilder.fromCurrentRequestUri()
             .path("/{id}")

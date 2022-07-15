@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 public class JobPositionDTO {
 
   private Long id;
+
   @NotNull
   @Size(max = 30)
   private String name;
