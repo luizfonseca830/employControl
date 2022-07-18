@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationEvent;
 
 public class HeaderLocationEvent extends ApplicationEvent {
 
-  transient private HttpServletResponse response;
+  private transient HttpServletResponse response;
   private Long id;
 
   public HeaderLocationEvent(Object source, HttpServletResponse response, Long id) {
