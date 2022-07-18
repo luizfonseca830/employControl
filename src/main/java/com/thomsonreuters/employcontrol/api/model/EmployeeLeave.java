@@ -18,7 +18,7 @@ public class EmployeeLeave implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
-  private Integer id;
+  private Long id;
 
   @ManyToOne
   @JoinColumn(name = "client", nullable = false)
@@ -88,11 +88,11 @@ public class EmployeeLeave implements Serializable {
     this.client = client;
   }
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 }
