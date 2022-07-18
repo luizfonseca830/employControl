@@ -1,6 +1,7 @@
 package com.thomsonreuters.employcontrol.api.dto;
 
 import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thomsonreuters.employcontrol.api.enums.LeaveType;
 import com.thomsonreuters.employcontrol.api.model.Client;
 import com.thomsonreuters.employcontrol.api.model.Employee;
@@ -10,14 +11,17 @@ import java.time.LocalDate;
 public class EmployeeLeaveDTO implements Serializable {
   private static final long serialVersionUID = 1L;
   private Integer id;
-  @ManyToOne
-  private Client client;
-  @ManyToOne
-  private Employee employee;
+  @ManyToOne private Client client;
+  @ManyToOne private Employee employee;
 
   private LeaveType leaveType;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   private LocalDate leaveDate;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   private LocalDate returnDate;
+
   private Integer numberDays;
 
   public Integer getId() {

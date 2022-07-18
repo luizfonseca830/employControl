@@ -8,13 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.thomsonreuters.employcontrol.api.enums.Type;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 
 @Entity
 @Table(name = "employee_leave")
 public class EmployeeLeave implements Serializable {
   private static final long serialVersionUID = 1L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
@@ -31,14 +35,19 @@ public class EmployeeLeave implements Serializable {
   @Column(name = "leave_type", nullable = false, length = 20)
   private String leaveType;
 
-  @Column(name = "leave_date", nullable = false)
+  @Column(name = "leave_date")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   private LocalDate leaveDate;
 
-  @Column(name = "return_date", nullable = false)
+  @Column(name = "return_date")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   private LocalDate returnDate;
 
   @Column(name = "number_days")
   private Integer numberDays;
+
+  @Column(name = "type")
+  private Type type;
 
   public Integer getNumberDays() {
     return numberDays;
@@ -48,20 +57,21 @@ public class EmployeeLeave implements Serializable {
     this.numberDays = numberDays;
   }
 
-  public LocalDate getReturnDate() {
-    return returnDate;
-  }
-
-  public void setReturnDate(LocalDate returnDate) {
-    this.returnDate = returnDate;
-  }
-
   public LocalDate getLeaveDate() {
     return leaveDate;
   }
 
   public void setLeaveDate(LocalDate leaveDate) {
     this.leaveDate = leaveDate;
+  }
+
+  public LocalDate getReturnDate() {
+    return returnDate;
+  }
+
+  public TemporalAccessor setReturnDate(LocalDate returnDate) {
+    this.returnDate = returnDate;
+    return returnDate;
   }
 
   public String getLeaveType() {

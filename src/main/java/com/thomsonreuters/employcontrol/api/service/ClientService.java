@@ -39,6 +39,10 @@ public class ClientService {
     return clientRepository.save(client);
   }
 
+  public Client edit(Client client) {
+    return clientRepository.save(client);
+  }
+
   public Optional<Client> searchForCode(Long id) {
     return clientRepository.findById(id);
   }
