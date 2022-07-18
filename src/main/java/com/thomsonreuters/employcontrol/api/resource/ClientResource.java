@@ -2,9 +2,7 @@ package com.thomsonreuters.employcontrol.api.resource;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,11 +53,6 @@ public class ClientResource {
 
   @PutMapping("/edit/{id}")
   public Client edit(@PathVariable Long id, @RequestBody ClientDTO clientDTO) {
-    Client clientSalvo =
-        this.clientService
-            .searchForCode(id)
-            .orElseThrow(() -> new EmptyResultDataAccessException(1));
-    BeanUtils.copyProperties(clientDTO, clientSalvo, "id");
-    return this.clientService.edit(clientSalvo);
+    return this.clientService.edit(clientDTO, id);
   }
 }

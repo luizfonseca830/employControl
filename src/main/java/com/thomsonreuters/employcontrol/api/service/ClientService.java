@@ -1,6 +1,8 @@
 package com.thomsonreuters.employcontrol.api.service;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import com.thomsonreuters.employcontrol.api.dto.ClientDTO;
 import com.thomsonreuters.employcontrol.api.model.Client;
@@ -39,8 +41,11 @@ public class ClientService {
     return clientRepository.save(client);
   }
 
-  public Client edit(Client client) {
-    return clientRepository.save(client);
+  public Client edit(ClientDTO clientDTO, Long id) {
+    Client clientSalvo = clientRepository.findById(id)
+            .orElseThrow(() -> new EmptyResultDataAccessException(1));
+    BeanUtils.copyProperties(clientDTO, clientSalvo, "id");
+    return clientRepository.save(clientSalvo);
   }
 
   public Optional<Client> searchForCode(Long id) {
