@@ -2,6 +2,7 @@ package com.thomsonreuters.employcontrol.api.exceptionhandler;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +58,16 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
       erros.add(new Erro(messageUser, messageDevelope));
     }
     return erros;
+  }
+
+  @org.springframework.web.bind.annotation.ExceptionHandler({EmptyResultDataAccessException.class})
+  public ResponseEntity<Object> handleEmptyResultDataAccessException(
+      EmptyResultDataAccessException ex, WebRequest request) {
+    String messageUser =
+        messageSource.getMessage("resource.notfound", null, LocaleContextHolder.getLocale());
+    String messageDevelope = ex.toString();
+    List<Erro> erros = Arrays.asList(new Erro(messageUser, messageDevelope));
+    return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
   public static class Erro {
