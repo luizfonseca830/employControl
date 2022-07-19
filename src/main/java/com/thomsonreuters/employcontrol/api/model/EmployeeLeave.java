@@ -13,6 +13,7 @@ import com.thomsonreuters.employcontrol.api.enums.Type;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
+import java.util.Objects;
 
 @Entity
 @Table(name = "employee_leave")
@@ -104,5 +105,53 @@ public class EmployeeLeave implements Serializable {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Type getType() {
+    return type;
+  }
+
+  public void setType(Type type) {
+    this.type = type;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    EmployeeLeave that = (EmployeeLeave) o;
+    return Objects.equals(id, that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  @Override
+  public String toString() {
+    return "EmployeeLeave{"
+        + "id="
+        + id
+        + ", client="
+        + client
+        + ", employee="
+        + employee
+        + ", leaveType='"
+        + leaveType
+        + '\''
+        + ", leaveDate="
+        + leaveDate
+        + ", returnDate="
+        + returnDate
+        + ", numberDays="
+        + numberDays
+        + ", type="
+        + type
+        + '}';
   }
 }
