@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 import com.thomsonreuters.employcontrol.api.dto.EmployeeLeaveDTO;
 import com.thomsonreuters.employcontrol.api.model.EmployeeLeave;
 import com.thomsonreuters.employcontrol.api.repository.EmployeeLeaveRepository;
+import com.thomsonreuters.employcontrol.api.repository.filter.EmployeeLeaveFilter;
 import com.thomsonreuters.employcontrol.api.service.exception.EmployeeLeaveTypeLeaveException;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeLeaveService {
@@ -25,23 +24,14 @@ public class EmployeeLeaveService {
 
   private final ModelMapper modelMapper;
 
-  private EmployeeLeaveDTO convertToEmployee(EmployeeLeave employeeLeave) {
-    return modelMapper.map(employeeLeave, EmployeeLeaveDTO.class);
-  }
-
   private EmployeeLeave convertToEmployeeLeaveDTO(EmployeeLeaveDTO employeeLeaveDTO) {
     return modelMapper.map(employeeLeaveDTO, EmployeeLeave.class);
   }
 
-  public List<EmployeeLeaveDTO> listAll() {
-    return employeeLeaveRepository.findAll().stream()
-        .map(this::convertToEmployee)
-        .collect(Collectors.toList());
+  public List<EmployeeLeave> research(EmployeeLeaveFilter employeeLeaveFilter) {
+   return employeeLeaveRepository.filter(employeeLeaveFilter);
   }
 
-  public Optional<EmployeeLeave> searchForCode(Long id) {
-    return employeeLeaveRepository.findById(id);
-  }
 
   public EmployeeLeave create(EmployeeLeaveDTO employeeLeaveDTO) {
     EmployeeLeave employeeLeave = convertToEmployeeLeaveDTO(employeeLeaveDTO);

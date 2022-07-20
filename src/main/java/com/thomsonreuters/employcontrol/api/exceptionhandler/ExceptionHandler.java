@@ -1,5 +1,6 @@
 package com.thomsonreuters.employcontrol.api.exceptionhandler;
 
+import javax.persistence.NonUniqueResultException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -81,6 +82,16 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     List<Erro> erros = Arrays.asList(new Erro(messageUser, messageDevelope));
     return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
+
+ @org.springframework.web.bind.annotation.ExceptionHandler({ NonUniqueResultException.class})
+ public ResponseEntity<Object> handleNonUniqueResultException(
+     NonUniqueResultException ex, WebRequest request){
+   String messageUser =
+       messageSource.getMessage("employee.exists", null, LocaleContextHolder.getLocale());
+   String messageDevelope = ExceptionUtils.getRootCauseMessage(ex);
+   List<Erro> erros = Arrays.asList(new Erro(messageUser, messageDevelope));
+   return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+ }
 
   public static class Erro {
     private String messageUser;

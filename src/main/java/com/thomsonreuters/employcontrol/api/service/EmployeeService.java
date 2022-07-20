@@ -35,6 +35,8 @@ public class EmployeeService {
   }
 
   public Employee create(EmployeeDTO employeeDTO) {
+    employeeRepository.findByNationalIdentity((employeeDTO.getNationalIdentity())).stream()
+        .anyMatch(employeeExist -> !employeeExist.equals(employeeDTO));
     Employee employee = convertToEmployeeDTO(employeeDTO);
     return employeeRepository.save(employee);
   }

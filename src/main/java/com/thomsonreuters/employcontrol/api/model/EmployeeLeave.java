@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thomsonreuters.employcontrol.api.enums.Type;
 import java.io.Serializable;
@@ -38,10 +39,12 @@ public class EmployeeLeave implements Serializable {
 
   @Column(name = "leave_date")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate leaveDate;
 
   @Column(name = "return_date")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate returnDate;
 
   @Column(name = "number_days")

@@ -1,36 +1,29 @@
-package com.thomsonreuters.employcontrol.api.dto;
+package com.thomsonreuters.employcontrol.api.repository.filter;
 
-import javax.persistence.ManyToOne;
+import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thomsonreuters.employcontrol.api.enums.LeaveType;
 import com.thomsonreuters.employcontrol.api.model.Client;
 import com.thomsonreuters.employcontrol.api.model.Employee;
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class EmployeeLeaveDTO implements Serializable {
-  private static final long serialVersionUID = 1L;
-  private Long id;
-  @ManyToOne private Client client;
-  @ManyToOne private Employee employee;
+public class EmployeeLeaveFilter {
+
+
+  private Client client;
+
+  private Employee employee;
 
   private LeaveType leaveType;
 
+
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate leaveDate;
 
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate returnDate;
-
-  private Integer numberDays;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public Client getClient() {
     return client;
@@ -70,13 +63,5 @@ public class EmployeeLeaveDTO implements Serializable {
 
   public void setReturnDate(LocalDate returnDate) {
     this.returnDate = returnDate;
-  }
-
-  public Integer getNumberDays() {
-    return numberDays;
-  }
-
-  public void setNumberDays(Integer numberDays) {
-    this.numberDays = numberDays;
   }
 }
